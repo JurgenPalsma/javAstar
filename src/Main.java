@@ -10,13 +10,15 @@ import java.lang.Math;
 public class Main {
 
 
+    public static double alpha;
+
     public static double estimateDistance(Vertex start, Vertex finish) {
         //
         //
 
-        double alpha = 0.15;
+        //double alpha = 0.15;
 
-        return Math.sqrt(Math.pow((finish.get_x() - start.get_x()), 2) + Math.pow((finish.get_y() - start.get_y()), 2)) * alpha;
+        return Math.sqrt(Math.pow((finish.get_x() - start.get_x()), 2) + Math.pow((finish.get_y() - start.get_y()), 2)) * Main.alpha;
     }
 
     public static double actualDistance(LinkedList<Vertex> v_list) {
@@ -155,6 +157,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        if (args.length > 0) {
+            try {
+                Main.alpha = Double.parseDouble(args[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("Argument" + args[0] + " must be an integer.");
+                System.exit(1);
+            }
+        }
+
         // Load Map
         Map map = new Map("");
 
@@ -180,11 +191,8 @@ public class Main {
                     Vertex last = route.getLast();
 
                     if (last.get_x() == p.getFinish().get_x() && last.get_y() == p.getFinish().get_y()) {
-//                        writeRoute(route, problem_counter + ".txt");
-                        System.out.print("Problem: " + problem_counter + " start : (" + p.getStart().get_x() + ", " + p.getStart().get_y() + ") ");
-                        System.out.println("! finish:(" + p.getFinish().get_x() + ", " + p.getFinish().get_y() + ")          in: " + route.size());
-                        System.out.println(route.toString());
-                        System.out.println();
+                      writeRoute(route, "./out/" + problem_counter + ".txt");
+                        System.out.println(route.size());
 
                         problem_counter++;
                         break;
