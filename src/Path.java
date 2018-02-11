@@ -1,3 +1,11 @@
+/*
+        Triangles - An implementation of A* in Java
+
+        Jurgen PALSMA
+        University of Kent
+        jjp29@kent.ac.uk
+*/
+
 import java.util.List;
 import java.util.Vector;
 

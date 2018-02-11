@@ -1,3 +1,13 @@
+/*
+        Triangles - An implementation of A* in Java
+
+        This code was provided by Andy King - A.M.King@kent.ac.uk
+
+        Jurgen PALSMA
+        University of Kent
+        jjp29@kent.ac.uk
+*/
+
 import java.util.*;
 
 

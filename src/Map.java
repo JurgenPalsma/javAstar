@@ -1,11 +1,23 @@
+/*
+        Triangles - An implementation of A* in Java
+
+        Jurgen PALSMA
+        University of Kent
+        jjp29@kent.ac.uk
+*/
+
 import java.util.Vector;
 
 public class Map {
 
-    private Vector<Triangle> triangles;
-    private Vector<Problem> problems;
+    // This is not elegant - I could have imported the map dynamically but I did not want to spend time on this
+
+    private Vector<Triangle> triangles; // triangles - obstacles - in the map
+    private Vector<Problem> problems; // pathfinding problems to be solved
     public static int map_size = 23;
-    Map(String filepath) {
+
+    Map() {
+
         this.triangles = new Vector<>();
 
         this.triangles.add(new Triangle(new Vertex(11,0), new Vertex(13, 1), new Vertex(18,5)));
@@ -28,8 +40,6 @@ public class Map {
 
 
         this.problems = new Vector<>();
-        //this.problems.add(new Problem(new Vertex(4,11), new Vertex(19,7)));
-
         this.problems.add(new Problem(new Vertex(3,3), new Vertex(19,7)));
         this.problems.add(new Problem(new Vertex(4,11), new Vertex(19,7)));
         this.problems.add(new Problem(new Vertex(9,11), new Vertex(18,6)));

@@ -1,3 +1,13 @@
+/*
+        Triangles - An implementation of A* in Java
+
+        This file was provided by Andy King - A.M.King@kent.ac.uk and modified by
+
+        Jurgen PALSMA
+        University of Kent
+        jjp29@kent.ac.uk
+*/
+
 import java.util.*;
 
 public class Vertex implements Comparable<Vertex>
@@ -31,38 +41,6 @@ public class Vertex implements Comparable<Vertex>
         {
             return v.get_x() - get_x();
         }
-    }
-
-    public boolean isValid(Map map, Path p){
-
-        if (this.get_y() <= Map.map_size && this.get_y() >=0 &&
-                this.get_x() <= Map.map_size && this.get_x() >= 0) { // Check if vertex is in the map
-
-            for (Triangle t: map.getTriangles()) {
-                List<Vertex> t_vertices = t.getVertices();
-                if (vertexInterior(this, t_vertices.get(0), t_vertices.get(1), t_vertices.get(2))) // Check if vertex is not in any triangle
-                    return false;
-
-                //if (p.getVertices().size() == 1)
-                Vertex curr_line_pt = p.getVertices().get(p.getVertices().size() - 1);
-                if (linesIntersect(curr_line_pt, this, t_vertices.get(0), t_vertices.get(1)))
-                    return false;
-                if (linesIntersect(curr_line_pt, this, t_vertices.get(1), t_vertices.get(2)))
-                    return false;
-                if (linesIntersect(curr_line_pt, this, t_vertices.get(0), t_vertices.get(2)))
-                    return false;
-            }
-
-            // check if line does not intersect with triangle?
-
-            for (Vertex v : p.getVertices()) { // Check deja-vu
-                if (v.get_y() == this.get_y() && v.get_x() == this.get_x())
-                    return false;
-            }
-
-            return true;
-        }
-        return false;
     }
 
     public boolean isValid(Map map, Vertex link){

@@ -1,8 +1,15 @@
+/*
+        Triangles - An implementation of A* in Java
+
+        Jurgen PALSMA
+        University of Kent
+        jjp29@kent.ac.uk
+*/
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Vector;
 import java.lang.Math;
@@ -11,8 +18,10 @@ public class Main {
 
 
     public static double estimateDistance(Vertex start, Vertex finish) {
-        //
-        //
+
+        // We estimate the distance using a Pythagoeran equation with a factor of alpha - alpha being a parameter that I
+        // have tuned over multiple runs to have the shortest execution time whilst having the most optimal path
+        // results possible.
 
         double alpha = 0.15;
 
@@ -20,7 +29,9 @@ public class Main {
     }
 
     public static double actualDistance(LinkedList<Vertex> v_list) {
-        // sum of  distance between vertices
+
+        // A unit of distance is an intermediate vertex in a path, so we simply return the number of vertices.
+
         return v_list.size();
     }
 
@@ -125,8 +136,10 @@ public class Main {
         return configs;
     }
 
-    // function to write the route to a given file
     public static void writeRoute(LinkedList<Vertex> route, String file_name) throws IOException {
+
+        // function to write the route to a given file
+
 
         BufferedWriter out = null;
         try {
@@ -156,13 +169,14 @@ public class Main {
     public static void main(String[] args) {
 
         // Load Map
-        Map map = new Map("");
+        Map map = new Map();
 
         // Get list of triangles
         Vector<Triangle> triangles = map.getTriangles();
         Vector<Problem> problems = map.getProblems();
 
-        try {
+        try { // A* - based on A.M King's material in the CO528 module at the University of Kent
+
             int problem_counter = 0;
             while (problem_counter < problems.size()) {
 
@@ -180,12 +194,7 @@ public class Main {
                     Vertex last = route.getLast();
 
                     if (last.get_x() == p.getFinish().get_x() && last.get_y() == p.getFinish().get_y()) {
-//                        writeRoute(route, problem_counter + ".txt");
-                        System.out.print("Problem: " + problem_counter + " start : (" + p.getStart().get_x() + ", " + p.getStart().get_y() + ") ");
-                        System.out.println("! finish:(" + p.getFinish().get_x() + ", " + p.getFinish().get_y() + ")          in: " + route.size());
-                        System.out.println(route.toString());
-                        System.out.println();
-
+                        writeRoute(route, "./../out/" + problem_counter + ".txt");
                         problem_counter++;
                         break;
                     } else {
@@ -206,6 +215,7 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return;
         }
     }
 }
